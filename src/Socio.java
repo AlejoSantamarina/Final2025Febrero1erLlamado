@@ -4,17 +4,13 @@ import java.util.ArrayList;
 public class Socio {
     private String nombre;
     private int edad;
-    private ArrayList<Libro> librosRetirados;
-    private ArrayList<LocalDate> fechaDePrestamo;
-    private ArrayList<LocalDate> fechaDeDevolucion;
+    private ArrayList<RegistroPrestamo> registroPrestamos;
     private ArrayList<String> requisitosEspeciales;
 
     public Socio(String nombre, int edad) {
         this.nombre = nombre;
         this.edad = edad;
-        librosRetirados = new ArrayList<>();
-        fechaDePrestamo = new ArrayList<>();
-        fechaDeDevolucion = new ArrayList<>();
+        registroPrestamos = new ArrayList<>();
         requisitosEspeciales = new ArrayList<>();
     }
 
@@ -26,40 +22,36 @@ public class Socio {
         return edad;
     }
 
-    public ArrayList<Libro> getLibrosRetirados() {
-        return librosRetirados;
-    }
-
-    public ArrayList<LocalDate> getFechaDePrestamo() {
-        return fechaDePrestamo;
-    }
-
-    public ArrayList<LocalDate> getFechaDeDevolucion() {
-        return fechaDeDevolucion;
+    public ArrayList<RegistroPrestamo> getRegistroPrestamos() {
+        return registroPrestamos;
     }
 
     public ArrayList<String> getRequisitosEspeciales() {
         return requisitosEspeciales;
     }
 
-    public boolean devolvioLibros() {
-        int i;
-        for(i = 0; i < librosRetirados.size(); i++) {
-            if(getFechaDeDevolucion().get(i) == null) {
-                return false;
+    public boolean debeLibros() {
+        for(RegistroPrestamo registroPrestamo : registroPrestamos) {
+            if(registroPrestamo.estaPendiente()) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void solicitarPrestamo(Requisito requisito, Libro libro) {
         if(requisito.cumple(this)) {
-            this.librosRetirados.add(libro);
-            this.fechaDePrestamo.add(LocalDate.now());
+            RegistroPrestamo nuevoPrestamo = new RegistroPrestamo(libro, LocalDate.now());
+            libro.setSocio_prestatario(this);
         }
     }
 
     public void devolverLibro(Libro libro) {
-        this.fechaDeDevolucion.add(LocalDate.now());
+        for(RegistroPrestamo registroPrestamo : registroPrestamos) {
+            if(registroPrestamo.estaPendiente() && registroPrestamo.equals(libro)) {
+                registroPrestamo.registrarDevolucion(LocalDate.now());
+                libro.setSocio_prestatario(null);
+            }
+        }
     }
 }

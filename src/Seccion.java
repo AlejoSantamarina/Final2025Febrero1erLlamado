@@ -23,22 +23,20 @@ public class Seccion extends BCU {
         return cantLibros;
     }
 
-    public int cantLibrosNoPrestados() {
+    public int cantLibrosCumplen(ReqLibro reqLibro) {
         int cantLibrosNoPrestados = 0;
         for(BCU componente : componentes) {
-            cantLibrosNoPrestados += componente.cantLibrosNoPrestados();
+            cantLibrosNoPrestados += componente.cantLibrosCumplen(reqLibro);
         }
         return cantLibrosNoPrestados;
     }
 
-    public double porcentajeLibrosNoPrestados() {
-        double porcentajeLibrosNoPrestados = 0;
-        double totalLibros = 0;
-        double totalLibrosNoPrestados = 0;
-        for(BCU componente : componentes) {
-            totalLibros+= componente.cantLibros();
-            totalLibrosNoPrestados+= componente.cantLibrosNoPrestados();
+    public double calcularPorcentaje(ReqLibro reqLibro) {
+        double librosQuecumplen = cantLibrosCumplen(reqLibro);
+        int totalLibros = cantLibros();
+        if(totalLibros == 0) {
+            return 0;
         }
-        return totalLibrosNoPrestados/totalLibros;
+        return librosQuecumplen/totalLibros;
     }
 }

@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class Libro extends BCU {
     private int cantPaginas;
-    private String socio_prestatario;
+    private Socio socio_prestatario;
     private ArrayList<String> caracteristicas;
 
-    public Libro(int cantPaginas, String socio_prestatario) {
+    public Libro(int cantPaginas, Socio socio_prestatario) {
         this.cantPaginas = cantPaginas;
         this.socio_prestatario = socio_prestatario;
     }
@@ -14,7 +14,7 @@ public class Libro extends BCU {
         return cantPaginas;
     }
 
-    public String getSocio_prestatario() {
+    public Socio getSocio_prestatario() {
         return socio_prestatario;
     }
 
@@ -34,10 +34,18 @@ public class Libro extends BCU {
         return 1;
     }
 
-    public int cantLibrosNoPrestados() {
-        if(this.socio_prestatario == null) {
+    public int cantLibrosCumplen(ReqLibro reqLibro) {
+        if(reqLibro.cumple(this)) {
             return 1;
         }
         return 0;
+    }
+
+    public double calcularPorcentaje(ReqLibro reqLibro) {
+        return this.cantLibrosCumplen(reqLibro);
+    }
+
+    public void setSocio_prestatario(Socio socio_prestatario) {
+        this.socio_prestatario = socio_prestatario;
     }
 }
