@@ -1,32 +1,32 @@
 import java.util.ArrayList;
 
 public class Seccion extends BCU {
-    private ArrayList<Libro> libros;
+    private ArrayList<BCU> componentes;
 
     public Seccion() {
-        libros = new ArrayList<>();
+        componentes = new ArrayList<>();
     }
 
     public ArrayList<Libro> librosDisponibles(ArrayList<String> requisitosEspeciales) {
         ArrayList<Libro> librosDisponibles = new ArrayList<>();
-        for(Libro libro : libros) {
-            librosDisponibles.addAll(libro.librosDisponibles(requisitosEspeciales));
+        for(BCU componente : componentes) {
+            librosDisponibles.addAll(componente.librosDisponibles(requisitosEspeciales));
         }
         return librosDisponibles;
     }
 
     public int cantLibros() {
         int cantLibros = 0;
-        for(Libro libro : libros) {
-            cantLibros+= libro.cantLibros();
+        for(BCU componente : componentes) {
+            cantLibros+= componente.cantLibros();
         }
         return cantLibros;
     }
 
     public int cantLibrosNoPrestados() {
         int cantLibrosNoPrestados = 0;
-        for(Libro libro : libros) {
-            cantLibrosNoPrestados = libro.cantLibrosNoPrestados();
+        for(BCU componente : componentes) {
+            cantLibrosNoPrestados += componente.cantLibrosNoPrestados();
         }
         return cantLibrosNoPrestados;
     }
@@ -35,9 +35,9 @@ public class Seccion extends BCU {
         double porcentajeLibrosNoPrestados = 0;
         double totalLibros = 0;
         double totalLibrosNoPrestados = 0;
-        for(Libro libro : libros) {
-            totalLibros+= libro.cantLibros();
-            totalLibrosNoPrestados+= libro.cantLibrosNoPrestados();
+        for(BCU componente : componentes) {
+            totalLibros+= componente.cantLibros();
+            totalLibrosNoPrestados+= componente.cantLibrosNoPrestados();
         }
         return totalLibrosNoPrestados/totalLibros;
     }
