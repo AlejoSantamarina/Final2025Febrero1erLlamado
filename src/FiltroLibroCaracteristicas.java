@@ -1,7 +1,7 @@
-public class ReqLibroCaracteristicas implements ReqLibro {
+public class FiltroLibroCaracteristicas implements FiltroLibro {
     private String caracteristicas;
 
-    public ReqLibroCaracteristicas(String caracteristicas) {
+    public FiltroLibroCaracteristicas(String caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
 

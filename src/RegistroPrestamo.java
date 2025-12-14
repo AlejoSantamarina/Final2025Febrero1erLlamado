@@ -6,8 +6,12 @@ public class RegistroPrestamo {
     private LocalDate fechaDevolucion;
 
     public RegistroPrestamo(Libro libro, LocalDate fechaPrestamo) {
-        libro = libro;
+        this.libro = libro;
         this.fechaPrestamo = fechaPrestamo;
+    }
+
+    public Libro getLibro() {
+        return libro;
     }
 
     public boolean estaPendiente() {

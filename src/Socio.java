@@ -39,16 +39,17 @@ public class Socio {
         return false;
     }
 
-    public void solicitarPrestamo(Requisito requisito, Libro libro) {
-        if(requisito.cumple(this)) {
+    public void solicitarPrestamo(Libro libro) {
+        if(libro.getReqLibro().cumple(this)) {
             RegistroPrestamo nuevoPrestamo = new RegistroPrestamo(libro, LocalDate.now());
             libro.setSocio_prestatario(this);
+            registroPrestamos.add(nuevoPrestamo);
         }
     }
 
     public void devolverLibro(Libro libro) {
         for(RegistroPrestamo registroPrestamo : registroPrestamos) {
-            if(registroPrestamo.estaPendiente() && registroPrestamo.equals(libro)) {
+            if(registroPrestamo.estaPendiente() && registroPrestamo.getLibro().equals(libro)) {
                 registroPrestamo.registrarDevolucion(LocalDate.now());
                 libro.setSocio_prestatario(null);
             }

@@ -1,7 +1,7 @@
-public class ReqLibroCantPaginas implements ReqLibro {
+public class FiltroLibroCantPaginas implements FiltroLibro {
     private int cantPaginas;
 
-    public ReqLibroCantPaginas(int cantPaginas) {
+    public FiltroLibroCantPaginas(int cantPaginas) {
         this.cantPaginas = cantPaginas;
     }
 

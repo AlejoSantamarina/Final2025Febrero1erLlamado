@@ -1,7 +1,7 @@
-public class RequisitoLibrosSinDevolver implements Requisito {
+public class RequisitoTieneLibrosSinDevolver implements Requisito {
 
     public boolean cumple(Socio socio) {
-        if(socio.devolvioLibros()) {
+        if(socio.debeLibros()) {
             return true;
         }
         return false;

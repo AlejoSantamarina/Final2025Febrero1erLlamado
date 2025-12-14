@@ -1,4 +1,4 @@
-public interface ReqLibro {
+public interface FiltroLibro {
 
     public boolean cumple(Libro libro);
 }

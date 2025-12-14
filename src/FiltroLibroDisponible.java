@@ -1,4 +1,4 @@
-public class ReqLibroDisponible implements ReqLibro {
+public class FiltroLibroDisponible implements FiltroLibro {
 
     public boolean cumple(Libro libro) {
         if(libro.getSocio_prestatario() == null) {
